@@ -2,10 +2,6 @@
 /* @var $this yii\web\View */
 /* @var $model app\models\Post */
 
-use yii\bootstrap4\Breadcrumbs;
-use yii\helpers\Html;
-use yii\helpers\Url;
-
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => $model->postCategory->name, 'url' => ['category/view', 'category_slug' => $model->postCategory->slug]];
 $this->params['breadcrumbs'][] = $this->title;
@@ -35,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="main-post">
                     <?php if($model->image !== null && $model->image !== '') :?>
                         <div class="text-center">
-                            <img src="<?= $model->getImgUrl(); ?>" style="max-width: 100%;" />
+                            <img src="<?= $model->getImgUrl(); ?>" alt="Post image" style="max-width: 100%;" />
                         </div>
                     <?php endif; ?>
                     <p><?= $model->description ?></p>

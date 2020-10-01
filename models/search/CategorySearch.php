@@ -5,13 +5,12 @@ namespace app\models\search;
 
 
 use app\models\Post;
+use app\models\PostCategory;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
-class PostSearch extends Model
+class CategorySearch extends Model
 {
-    const MAIN_PAGE_NUMBER = 1;
-
     public $p = 1;
 
     public function formName()
@@ -28,7 +27,7 @@ class PostSearch extends Model
 
     public function search($params)
     {
-        $query = Post::find()
+        $query = PostCategory::find()
             ->alias('t1')
             ->andWhere([
                 't1.status' => Post::STATUS_ENABLED

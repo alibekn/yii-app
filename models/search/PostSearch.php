@@ -23,7 +23,6 @@ class PostSearch extends Model
     {
         return [
             [['p'], 'integer'],
-            ['category', 'string', 'max' => 255]
         ];
     }
 

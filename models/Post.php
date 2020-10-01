@@ -1,8 +1,8 @@
 <?php
 
-namespace common\models;
+namespace app\models;
 
-use Yii;
+use app\models\PostCategory;
 use yii\behaviors\SluggableBehavior;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
@@ -13,6 +13,7 @@ use yii\db\ActiveRecord;
  *
  * @property int $id
  * @property string|null $name
+ * @property int $category_id
  * @property string|null $slug
  * @property string|null $image
  * @property string|null $description
@@ -20,6 +21,8 @@ use yii\db\ActiveRecord;
  * @property int $created_at
  * @property int $updated_at
  * @property int $status
+ *
+ *  @property PostCategory $postCategory
  *
  */
 class Post extends ActiveRecord
@@ -56,7 +59,7 @@ class Post extends ActiveRecord
     {
         return [
             [['name', 'image'], 'required'],
-            [['viewed', 'created_at', 'updated_at', 'status'], 'integer'],
+            [['category_id', 'viewed', 'created_at', 'updated_at', 'status'], 'integer'],
             [['name', 'slug', 'image', 'description'], 'string']];
     }
 
@@ -68,6 +71,7 @@ class Post extends ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'category_id' => 'Category ID',
             'slug' => 'Slug',
             'image' => 'Image',
             'viewed' => 'Viewed',
@@ -75,6 +79,15 @@ class Post extends ActiveRecord
             'updated_at' => 'Updated at',
             'status' => 'Status',
         ];
+    }
+
+    /**
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCategory()
+    {
+        return $this->hasOne(PostCategory::className(), ['id' => 'category_id']);
     }
 
     public function getStatusLabel()
@@ -88,15 +101,15 @@ class Post extends ActiveRecord
     public static function getStatuses()
     {
         return [
-            self::STATUS_ENABLED => Yii::t('post', 'Enabled'),
-            self::STATUS_DISABLED => Yii::t('post', 'Disabled'),
+            self::STATUS_ENABLED => 'Enabled',
+            self::STATUS_DISABLED => 'Disabled',
         ];
     }
 
     public static function getFixedList()
     {
         return [
-            self::FIXED_YES => Yii::t('post', 'Yes'),
+            self::FIXED_YES => 'Yes',
         ];
     }
 
